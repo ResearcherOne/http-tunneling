@@ -4,12 +4,12 @@ var app = express();
 
 var allowCrossOrigin = require('./allowCrossOriginMiddleware');
 
-const turkishWiki = "https://tr.wikipedia.org";
-const enWiki = "https://en.wikipedia.org";
+const turkishWikipedia = "https://tr.wikipedia.org";
+const port = process.env.PORT || 8010;
 
-app.get('/en', function (req, res) {
+app.get('/get', function (req, res) {
 	var requestedUrl = req.param('page');
-	request.get(enWiki).pipe(res);
+	request.get(turkishWikipedia).pipe(res);
 });
 
 function myMiddleware (req, res, next) {
@@ -17,7 +17,7 @@ function myMiddleware (req, res, next) {
 	   var fullUrl = req.protocol + '://' + req.get('host') + req.originalUrl;
 		console.log("fullUrl: "+fullUrl);
 		console.log("originalUrl: "+req.originalUrl);
-		request.get(turkishWiki+req.originalUrl).pipe(res);
+		request.get(turkishWikipedia+req.originalUrl).pipe(res);
    } else {
 	   next();
    }
@@ -25,6 +25,6 @@ function myMiddleware (req, res, next) {
 
 app.use(myMiddleware)
 
-app.listen(8010, function () {
-	console.log('Example app listening on port 8010!');
+app.listen(port, function () {
+	console.log('Example app listening on port '+port+'!');
 });
