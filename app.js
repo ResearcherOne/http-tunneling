@@ -4,15 +4,15 @@ var app = express();
 
 var allowCrossOrigin = require('./allowCrossOriginMiddleware');
 
-const turkishWikipedia = "https://tr.wikipedia.org";
-const port = process.env.PORT || 8010;
+const enWikipedia = "https://en.wikipedia.org";
+const port = process.env.PORT || 8020;
 
 function myMiddleware (req, res, next) {
    if (req.method === 'GET') {
 	   var fullUrl = req.protocol + '://' + req.get('host') + req.originalUrl;
 		console.log("fullUrl: "+fullUrl);
 		console.log("originalUrl: "+req.originalUrl);
-		request.get(turkishWikipedia+req.originalUrl).pipe(res);
+		request.get(enWikipedia+req.originalUrl).pipe(res);
    } else {
 	   next();
    }
